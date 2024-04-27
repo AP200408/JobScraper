@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import logging
 
-class AmbitionBoxScraper:
+class Scraper:
     def __init__(self, num_pages):
         self.num_pages = num_pages
         self.df = pd.DataFrame(columns=['Company', 'Rating', 'Reviews', 'Salaries', 'Interviews', 'Jobs', 'Benefits', 'Type', 'Employees', 'Age', 'Ownership', 'Place', 'Rated Highly For', 'Rated Critical For'])
@@ -128,7 +128,14 @@ class AmbitionBoxScraper:
                 continue
 
         return self.df
+      
+    def save_to_csv(self, filename):
+        self.df.to_csv(filename, index=False)
 
-scraper = AmbitionBoxScraper(num_pages=50)
+scraper = Scraper(num_pages=50)
 data = scraper.scrape()
+
 print(data.tail())
+
+# Convert it to csv
+# scraper.save_to_csv('ambitionbox_data.csv')
